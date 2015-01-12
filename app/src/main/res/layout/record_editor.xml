@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="@color/background"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:padding="10dip"  
+	android:orientation="vertical">
+    <LinearLayout android:orientation="vertical" 
+		android:layout_height="wrap_content" 
+		android:layout_width="fill_parent" 
+		android:layout_gravity="center"
+		android:layout_weight="1">
+		<TextView android:text="@string/account_text" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content"/>
+        <Spinner android:id="@+id/account_spinner" 
+        	android:layout_width="match_parent" 
+        	android:layout_height="wrap_content"/>
+        <TextView android:text="@string/amount_text" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content"/>
+
+        <LinearLayout android:orientation="horizontal"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center">
+            <EditText android:id="@+id/amount_edit_text"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:inputType="numberDecimal"
+                      android:gravity="right" android:layout_marginLeft="1dp" android:layout_marginTop="1dp"
+                android:layout_weight="1" />
+
+            <ImageButton android:id="@+id/calcButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_menu_calc" />
+
+        </LinearLayout>
+
+		<TextView android:text="@string/date_text" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content"/>
+        <Button android:id="@+id/edit_date_button"        	        	 
+        	android:layout_width="match_parent" 
+        	android:layout_height="wrap_content"
+        	android:text=""/>
+        <TextView android:text="@string/category_text" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content"/>
+        <Spinner android:id="@+id/category_spinner" 
+        	android:layout_width="match_parent" 
+        	android:layout_height="wrap_content"/>
+        <TextView android:text="@string/description_text" 
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content"/>
+        <AutoCompleteTextView  android:id="@+id/description_edit_text" 
+        	android:layout_width="match_parent" 
+        	android:layout_height="wrap_content"
+        	android:inputType="textAutoComplete"
+        	android:maxLength="200" android:layout_marginLeft="1dp" android:layout_marginRight="1dp"/>
+	</LinearLayout>
+    
+    <LinearLayout android:orientation="horizontal" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 		
+		android:layout_gravity="center">
+	
+    	<Button android:id="@+id/backButton"
+    		android:gravity="center"
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content"	               
+	        android:layout_weight="1.8"
+	        android:text="@string/back_button_label"
+	        android:drawableLeft="@drawable/undo"/>
+	    
+	    <Button android:id="@+id/saveButton"
+    		android:gravity="center"
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content"	               
+	        android:layout_weight="1"
+	        android:text="@string/save_button_label"
+	        android:drawableLeft="@drawable/ic_menu_save"/>    
+   	</LinearLayout>	
+    
+</LinearLayout>

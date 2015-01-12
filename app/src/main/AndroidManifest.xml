@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.itkachuk.pa"
+      android:installLocation="preferExternal"
+      android:versionCode="1"
+      android:versionName="1.0">
+
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:debuggable="true">
+        <activity android:name=".activities.StartupActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".activities.editors.RecordEditorActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.menus.ReportsMenuActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.menus.ServiceMenuActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>             
+        
+        <activity android:name=".activities.management.AccountsManagementActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.management.CategoriesManagementActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.editors.AccountEditorActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.editors.CategoryEditorActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.editors.PreferencesEditorActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.filters.FilterActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        
+        <activity android:name=".activities.reports.HistoryReportActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".activities.reports.CommonReportActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".activities.reports.ConsolidatedReportActivity"
+                  android:screenOrientation="portrait">
+        </activity>
+        
+        <activity android:name=".activities.reports.MonthlyBalanceReportActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity android:name="org.achartengine.GraphicalActivity"
+            	  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        		
+    </application>   
+</manifest>

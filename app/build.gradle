@@ -1,0 +1,26 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 8
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.itkachuk.pa"
+        minSdkVersion 4
+        targetSdkVersion 8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+    dependencies {
+        compile 'com.j256.ormlite:ormlite-core:4.48'
+        compile 'com.j256.ormlite:ormlite-android:4.48'
+        //compile 'com.j256.ormlite:ormlite-jdbc:4.9'
+        compile 'org.achartengine:achartengine:1.2.0'
+    }
+}

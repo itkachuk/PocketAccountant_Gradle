@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Common -->
+    <string name="app_name">Pocket Accountant</string>
+    <string name="back_button_label">Back</string>
+    <string name="yes_button_label">Yes</string>
+    <string name="no_button_label">No</string>
+    <string name="ok_button_label">Ok</string>
+    <string name="cancel_button_label">Cancel</string>
+    <string name="save_button_label">Save</string>   
+       
+	<!-- Startup Activity -->
+	<string name="main_title">Pocket Accountant</string> 
+	<string name="new_expense_label">Expense</string> 
+	<string name="new_income_label">Income</string>
+	<string name="reports_label">Reports</string>  
+	<string name="service_label">Service</string> 
+	<string name="exit_label">Exit</string>
+	
+	<!-- Record Editor Activity -->
+	<string name="account_text">Account</string>
+	<string name="amount_text">Amount</string>
+	<string name="date_text">Date</string>
+	<string name="category_text">Category</string>
+	<string name="description_text">Description</string>
+	<!-- DateTimePicker widget buttons -->
+	<string name="reset_button_label">Reset</string>
+	<string name="settime_button_label">Set time</string>
+	<string name="setdate_button_label">Set date</string>
+	
+	<!-- Reports menu Activity -->
+	<string name="reports_menu_header_text">Reports</string>
+	<string name="history_report_label">History</string> 
+	<string name="common_report_label">Common</string> 
+	<string name="consolidated_report_label">Consolidated</string>
+	<string name="monthly_balance_report_label">Monthly Balance</string>
+	
+	<!-- History Report Activity -->
+	<string name="page_text">Page</string>
+	
+	<!-- Common Report Activity -->
+	<string name="inc_exp_per_month_text">Incomes/Expenses per Month</string>
+	<string name="income_text">Income</string>
+	<string name="expense_text">Expense</string>
+	<string name="balance_text">Balance</string>
+	<string name="current_text">Current</string>
+	<string name="past_text">Past</string>
+	<string name="month_text">Month</string>
+	<string name="quarter_text">Quarter</string>
+	<string name="year_text">Year</string>
+	
+	<!-- Monthly Balance Report Activity -->
+	<string name="balance_for_year_text">Balance for year:</string>
+	
+	<!-- Reports Filtering Activity -->
+	<string name="what_to_show_text">To Show</string>
+	<string name="time_interval_text">Time Interval</string>
+	<string name="start_date_text">Start Date</string>
+	<string name="end_date_text">End Date</string>
+	<string name="show_report_button_label">Show Report</string>
+	<string name="apply_filter_button_label">Apply Filter</string>
+	<!-- Filtering Spinner items -->
+	<string name="all_text">All</string>
+	<string name="incomes_text">Incomes</string>
+	<string name="expenses_text">Expenses</string>
+	<!-- Time-filtering Spinner items -->
+	<string-array name="time_ranges_list">
+        <item>All Time</item>
+        <item>Custom</item>  
+        <item>Day</item>      
+        <item>Week</item>
+        <item>Month</item>
+        <item>Quarter</item>
+        <item>Year</item>
+        <item>Past Day</item>
+        <item>Past Week</item>
+        <item>Past Month</item>
+        <item>Past Quarter</item>
+        <item>Past Year</item>
+    </string-array>
+	
+	<!-- Service menu Activity -->
+	<string name="service_menu_header_text">Service</string>
+	<string name="accounts_label">Accounts</string> 
+	<string name="categories_label">Categories</string> 
+	<string name="program_settings_label">Program Settings</string>
+	
+	<!-- Program Settings Activity -->
+	<string name="default_account_text">Default Account</string>
+	<string name="language_text">Language</string>
+	<string name="rows_per_page_text">Rows per Page in \"History\" report</string>
+	
+	<!-- Accounts Management Activities (Accounts List and Account Editor) -->
+	<string name="add_account_button_label">Add Account</string>
+	<string name="account_name_text">Account Name</string>
+	<string name="currency_text">Currency</string>
+	
+	<!-- Categories Management Activities (Categories List and Category Editor) -->
+	<string name="add_category_button_label">Add Category</string>
+	<string name="category_name_text">Category Name</string>
+	<string name="category_group_text">Category Group</string>
+	
+	<!-- Sectioned List Items -->
+	<string name="predefined_text">Predefined</string>
+	<string name="custom_text">Custom</string>
+	
+	<!-- Dialogs -->
+	<string name="history_report_delete_record_dialog">Selected record will be removed. Continue?</string>
+	<string name="account_delete_dialog">Selected account will be removed. Continue?</string>
+	<string name="category_delete_dialog">Selected category will be removed. Continue?</string>
+	<!-- Progress Dialogs -->
+	<string name="data_loading_text">Data loading ..</string>
+	<string name="data_calculation_text">Data calculation ..</string>      
+	
+	<!-- Error messages -->
+	<string name="not_selected_category_message">Please, select a category</string>
+	<string name="wrong_amount_number_message">Please, enter correct Amount number</string>
+	<string name="empty_account_message">Please, enter correct Account name</string>
+	<string name="empty_category_message">Please, enter correct Category name</string>
+	<string name="wrong_time_filter_message">Start date can\'t be equal or grater than end date. Such filter will show nothing.</string>		
+	<string name="wrong_rows_per_page_number_message">Rows per Page number can\'t be less than 5 or grater than 50.</string>		
+	
+	<string name="no_data_message">No data to display</string>
+	
+	<!-- Main Account -->
+	<string name="main_account_name">[main]</string>
+	<string name="main_account_description">The main account of program. Can\'t be removed</string>
+	
+	<!-- Predefined Application Content -->
+	<!-- Categories -->
+	<string-array name="expense_categories">
+		<item>House</item>
+        <item>Car</item>
+        <item>Bills</item>
+        <item>Shopping-food</item>
+        <item>Shopping-wear</item>
+        <item>Shopping-technics</item>
+		<item>Shopping-household</item>
+        <item>Shopping-other</item>
+        <item>Services</item>
+        <item>Communication</item>
+        <item>Medicine</item>
+        <item>Credit</item>
+        <item>Leisure</item>
+        <item>Pets</item>
+        <item>Traveling</item>
+        <item>Gifts</item>       
+        <item>Transport</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="income_categories">
+        <item>Salary</item>
+        <item>Gifts</item>
+        <item>Other</item>
+    </string-array>
+    <!-- Category groups -->
+    <string-array name="category_groups_array">
+	    <item>Expenses</item>
+        <item>Incomes</item>
+    </string-array>
+    
+    <!-- Currencies -->
+    <string-array name="currencies_list">
+    	<item>UAH</item>
+      	<item>USD</item>
+      	<item>RUB</item>
+      	<item>EUR</item>
+    </string-array>
+
+</resources>
