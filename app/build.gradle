@@ -17,10 +17,17 @@ android {
         }
     }
 
-    dependencies {
-        compile 'com.j256.ormlite:ormlite-core:4.48'
-        compile 'com.j256.ormlite:ormlite-android:4.48'
-        //compile 'com.j256.ormlite:ormlite-jdbc:4.9'
-        compile 'org.achartengine:achartengine:1.2.0'
+    dexOptions {
+        incremental false
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
+    }
+}
+
+dependencies {
+    compile 'com.j256.ormlite:ormlite-core:4.48'
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'org.achartengine:achartengine:1.1.0'
 }

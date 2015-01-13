@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
+import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
 import android.app.ProgressDialog;
@@ -147,10 +148,11 @@ public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHe
 		}		
 		ChartUtils.setChartSettings(renderer, balanceForYearText + " " + calendar.get(Calendar.YEAR), 
 				getResources().getString(R.string.month_text), amountText, 
-				0.5, 12.5, minValue, maxValue, Color.GRAY, Color.LTGRAY); 
-		renderer.getSeriesRendererAt(0).setDisplayChartValues(true);
-		renderer.getSeriesRendererAt(1).setDisplayChartValues(true);
-		renderer.getSeriesRendererAt(2).setDisplayChartValues(true);
+				0.5, 12.5, minValue, maxValue, Color.GRAY, Color.LTGRAY);
+        for (SimpleSeriesRenderer simpleRenderer : renderer.getSeriesRenderers()) {
+            simpleRenderer.setDisplayChartValues(true);
+            simpleRenderer.setDisplayChartValuesDistance(10); // try to set minimal distance - need to test
+        }
 		
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);
