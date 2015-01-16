@@ -43,14 +43,18 @@
 	<string name="income_text">Income</string>
 	<string name="expense_text">Expense</string>
 	<string name="balance_text">Balance</string>
+    <string name="profit_text">Profit</string>
 	<string name="current_text">Current</string>
 	<string name="past_text">Past</string>
+    <string name="day_text">Day</string>
 	<string name="month_text">Month</string>
 	<string name="quarter_text">Quarter</string>
 	<string name="year_text">Year</string>
 	
 	<!-- Bar Charts Report Activity -->
-	<string name="balance_for_year_text">Balance for year:</string>
+	<string name="charts_for_all_time_text">Annual incomes/expenses</string>
+	<string name="charts_for_year_text">Monthly incomes/expenses for year:</string>
+	<string name="charts_for_month_text">Daily incomes/expenses for month:</string>
     <string name="bar_charts_report_time_steps_label">Show data calculated per:</string>
     <!-- Chart report type Spinner items -->
     <string-array name="bar_charts_report_time_steps_list">

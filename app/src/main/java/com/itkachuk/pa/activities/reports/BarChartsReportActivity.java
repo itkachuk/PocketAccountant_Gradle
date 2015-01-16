@@ -159,25 +159,28 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	}
 
     private void updateMonthText() {
-        //mMonthTimeFilter.setText(Integer.toString(mCalendar.get(Calendar.MONTH)));
+        mMonthTimeFilter.setText(getMonthStringFromDate());
+    }
+
+    private String getMonthStringFromDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMMMMM", Locale.getDefault());
         String month = dateFormat.format(mCalendar.getTime());
-        mMonthTimeFilter.setText(month);
+        return month;
     }
 
     private void showHideFilterControls() {
         switch (mTimeStepSelectorSpinner.getSelectedItemPosition()) {
-            case 0: {
+            case 0: { // Day
                 findViewById(R.id.yearTimeFilterBlock).setVisibility(View.VISIBLE);
                 findViewById(R.id.monthTimeFilterBlock).setVisibility(View.VISIBLE);
                 break;
             }
-            case 1: {
+            case 1: { // Month
                 findViewById(R.id.yearTimeFilterBlock).setVisibility(View.VISIBLE);
                 findViewById(R.id.monthTimeFilterBlock).setVisibility(View.INVISIBLE);
                 break;
             }
-            case 2: {
+            case 2: { // Year
                 findViewById(R.id.yearTimeFilterBlock).setVisibility(View.INVISIBLE);
                 findViewById(R.id.monthTimeFilterBlock).setVisibility(View.INVISIBLE);
                 break;
@@ -186,12 +189,19 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
     }
 	
 	private Intent getBarChartIntent(Context context) throws SQLException {
-		// Set bars labels: "Incomes", "Expenses", "Balance"		
-		String[] titles = new String[] { 
+        String chartTitle = "";
+        String xAxisTitle = "";
+        int[] barsColors = new int[] {
+                context.getResources().getColor(R.color.income_amount_color),
+                context.getResources().getColor(R.color.expense_amount_color),
+                context.getResources().getColor(R.color.light_yellow_color)};
+		String[] barsTitles = new String[] {
 				getResources().getString(R.string.incomes_text), 
 				getResources().getString(R.string.expenses_text), 
-				getResources().getString(R.string.balance_text) };
-		
+				getResources().getString(R.string.profit_text)};
+
+        List<double[]> values = null;
+
 		int accountFilter = -1;
 		String  accountCurrency = null;
 		if (mAccountsFilterSpinner.getSelectedItem() != null) {
@@ -201,31 +211,49 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 				accountCurrency = account.getCurrency();
 			}
 		}
-		
-		List<double[]> values = calculateChartValues(accountFilter, mCalendar.get(Calendar.YEAR));
-		double minValue = values.get(3)[0]; // "values.get(3)[0]" - getting the minValue from values arrays
-		double maxValue = values.get(3)[1] + values.get(3)[1] * 0.1f; // "values.get(3)[1]" - getting the maxValue from values arrays
-		
-		int[] colors = new int[] { 
-				context.getResources().getColor(R.color.income_amount_color),
-				context.getResources().getColor(R.color.expense_amount_color),
-				context.getResources().getColor(R.color.light_yellow_color)};	
-		XYMultipleSeriesRenderer renderer = ChartUtils.buildBarRenderer(colors);
-		
-		String balanceForYearText = getResources().getString(R.string.balance_for_year_text);
+
+        switch (mTimeStepSelectorSpinner.getSelectedItemPosition()) {
+            case 0: { // Day
+                chartTitle = getResources().getString(R.string.charts_for_month_text) + " " + getMonthStringFromDate() + ", " + mCalendar.get(Calendar.YEAR);
+                // For day time step we draw only one graph - expenses or incomes
+                barsTitles = new String[] {getResources().getString(R.string.incomes_text),
+                                            getResources().getString(R.string.expenses_text)};
+                barsColors = new int[] {context.getResources().getColor(R.color.income_amount_color),
+                                        context.getResources().getColor(R.color.expense_amount_color)};
+                xAxisTitle = getResources().getString(R.string.day_text);
+                values = calculateChartValuesPerDay(accountFilter, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH));
+                break;
+            }
+            case 1: { // Month
+                chartTitle = getResources().getString(R.string.charts_for_year_text) + " " + mCalendar.get(Calendar.YEAR);
+                xAxisTitle = getResources().getString(R.string.month_text);
+                values = calculateChartValuesPerMonth(accountFilter, mCalendar.get(Calendar.YEAR));
+                break;
+            }
+            case 2: { // Year
+                chartTitle = getResources().getString(R.string.charts_for_all_time_text);
+                xAxisTitle = getResources().getString(R.string.year_text);
+                values = calculateChartValuesPerMonth(accountFilter, mCalendar.get(Calendar.YEAR)); // TODO
+                break;
+            }
+        }
+        double minValue = values.get(3)[0]; // "values.get(3)[0]" - getting the minValue from values arrays
+        double maxValue = values.get(3)[1] + values.get(3)[1] * 0.1f; // "values.get(3)[1]" - getting the maxValue from values arrays
+
+		XYMultipleSeriesRenderer renderer = ChartUtils.buildBarRenderer(barsColors);
+
 		String amountText = getResources().getString(R.string.amount_text);
 		if (accountCurrency != null) {
 			amountText = amountText + ", " + accountCurrency;
 		}		
-		ChartUtils.setChartSettings(renderer, balanceForYearText + " " + mCalendar.get(Calendar.YEAR),
-				getResources().getString(R.string.month_text), amountText, 
-				0.5, 12.5, minValue, maxValue, Color.GRAY, Color.LTGRAY);
+		ChartUtils.setChartSettings(renderer, chartTitle, xAxisTitle, amountText,
+				0.5, values.get(0).length + 0.5, minValue, maxValue, Color.GRAY, Color.LTGRAY);
         for (SimpleSeriesRenderer simpleRenderer : renderer.getSeriesRenderers()) {
             simpleRenderer.setDisplayChartValues(true);
             simpleRenderer.setDisplayChartValuesDistance(10); // try to set minimal distance - need to test
         }
 		
-		renderer.setXLabels(12);
+		renderer.setXLabels(values.get(0).length); // number of X-axis points
 		renderer.setYLabels(10);
 		renderer.setXLabelsAlign(Align.LEFT);
 		renderer.setYLabelsAlign(Align.LEFT);
@@ -235,20 +263,66 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		renderer.setZoomEnabled(true);
 		renderer.setZoomRate(1.0f);
 		renderer.setBarSpacing(0.3f);
-		return ChartFactory.getBarChartIntent(context, ChartUtils.buildBarDataset(titles, values), renderer,
+		return ChartFactory.getBarChartIntent(context, ChartUtils.buildBarDataset(barsTitles, values), renderer,
 				Type.DEFAULT);
 	}
-	
-	private List<double[]> calculateChartValues(int accountFilter, int year) throws SQLException {
+
+    private List<double[]> calculateChartValuesPerDay(int accountFilter, int year, int month) throws SQLException {
+        Dao<IncomeOrExpenseRecord, Integer> recordDao = getHelper().getRecordDao();
+        List<double[]> values = new ArrayList<double[]>();
+        int daysInMonth = mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        double[] incomes = new double[daysInMonth];
+        double[] expenses = new double[daysInMonth];
+
+        double[] minMaxValues = new double[2];
+        minMaxValues[0] = 0; // min
+        minMaxValues[1] = 0; // max
+        double income, expense;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        TimeRange timeRange = new TimeRange(DateUtils.DEFAULT_START_DATE, DateUtils.DEFAULT_END_DATE);
+
+
+        for (int day = 0; day < daysInMonth; day++) {
+            timeRange.setStartTime(calendar.getTimeInMillis());
+            //Log.d(TAG, "StartDate: " + DateFormat.format("dd.MM.yy hh:mm:ss", mCalendar) + "(" + month + ")");
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            timeRange.setEndTime(calendar.getTimeInMillis());
+            //Log.d(TAG, "EndDate: " + DateFormat.format("dd.MM.yy hh:mm:ss", mCalendar) + "(" + month + ")");
+
+            income = toDoubleAndRound(CalcUtils.getSumOfRecords(recordDao, accountFilter, false, timeRange));
+            expense = toDoubleAndRound(CalcUtils.getSumOfRecords(recordDao, accountFilter, true, timeRange));
+
+            incomes[day] = income;
+            expenses[day] = expense;
+
+            // identify the min and max values for BarChart graph (Y-axis)
+            if (income > minMaxValues[1]) minMaxValues[1] = income;
+            if (expense > minMaxValues[1]) minMaxValues[1] = expense;
+        }
+
+        values.add(incomes);
+        values.add(expenses);
+        values.add(new double[1]); // for compatibility
+        values.add(minMaxValues);
+
+        return values;
+    }
+
+	private List<double[]> calculateChartValuesPerMonth(int accountFilter, int year) throws SQLException {
 		Dao<IncomeOrExpenseRecord, Integer> recordDao = getHelper().getRecordDao();
 		List<double[]> values = new ArrayList<double[]>();
 		double[] incomes = new double[12]; 
 		double[] expenses = new double[12];
-		double[] balances = new double[12];
+		double[] profits = new double[12];
 		double[] minMaxValues = new double[2];
 		minMaxValues[0] = 0; // min
 		minMaxValues[1] = 0; // max
-		double income, expense, balance;
+		double income, expense, profit;
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.clear();
@@ -265,21 +339,21 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 			
 			income = toDoubleAndRound(CalcUtils.getSumOfRecords(recordDao, accountFilter, false, timeRange));
 			expense = toDoubleAndRound(CalcUtils.getSumOfRecords(recordDao, accountFilter, true, timeRange));
-			balance = income - expense;
+			profit = income - expense;
 			
 			incomes[month] = income;
 			expenses[month] = expense;
-			balances[month] = balance;
+			profits[month] = profit;
 			
 			// identify the min and max values for BarChart graph (Y-axis)
-			if (balance < 0) minMaxValues[0] = balance; // min			
+			if (profit < 0) minMaxValues[0] = profit; // min
 			if (income > minMaxValues[1]) minMaxValues[1] = income;
 			if (expense > minMaxValues[1]) minMaxValues[1] = expense;
 		}
 		
 		values.add(incomes);
 		values.add(expenses);
-		values.add(balances);
+		values.add(profits);
 		values.add(minMaxValues);
 		
 		return values;
