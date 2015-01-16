@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.itkachuk.pa.R;
-import com.itkachuk.pa.activities.reports.MonthlyBalanceReportActivity;
+import com.itkachuk.pa.activities.reports.BarChartsReportActivity;
 import com.itkachuk.pa.activities.reports.CommonReportActivity;
 import com.itkachuk.pa.activities.reports.ConsolidatedReportActivity;
 import com.itkachuk.pa.activities.reports.HistoryReportActivity;
@@ -101,7 +101,7 @@ public class ReportsMenuActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 	      	case R.id.monthly_balance_report_button:
 	      		Log.d(TAG, "clicked on \"Monthly Balance Report\"");
 	      		
-	      		MonthlyBalanceReportActivity.callMe(ReportsMenuActivity.this);
+	      		BarChartsReportActivity.callMe(ReportsMenuActivity.this);
 	      	break;
 		}	
 	}

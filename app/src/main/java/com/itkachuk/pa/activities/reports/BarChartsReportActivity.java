@@ -1,9 +1,11 @@
 package com.itkachuk.pa.activities.reports;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
@@ -17,8 +19,8 @@ import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -31,21 +33,24 @@ import com.itkachuk.pa.entities.IncomeOrExpenseRecord;
 import com.itkachuk.pa.utils.CalcUtils;
 import com.itkachuk.pa.utils.ChartUtils;
 import com.itkachuk.pa.utils.DateUtils;
-import com.itkachuk.pa.utils.PreferencesUtils;
 import com.itkachuk.pa.utils.ActivityUtils;
 import com.itkachuk.pa.utils.TimeRange;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 
-public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
+public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	private static final String TAG = "PocketAccountant";
 
-	private Calendar calendar;
+	private Calendar mCalendar;
 	
 	private Spinner mAccountsFilterSpinner;
+	private Spinner mTimeStepSelectorSpinner;
 	private TextView mYearTimeFilter;
-	private ImageButton mRollYearForwardButton;
-	private ImageButton mRollYearBackwardButton;
+    private TextView mMonthTimeFilter;
+	private ImageButton mRollMonthForwardButton;
+	private ImageButton mRollMonthBackwardButton;
+    private ImageButton mRollYearForwardButton;
+    private ImageButton mRollYearBackwardButton;
 	private Button mShowReportButton;
 	
 	private Context context;
@@ -53,31 +58,52 @@ public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHe
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.balance_report);
+        setContentView(R.layout.bar_charts_report);
         context = this;
-        calendar = Calendar.getInstance();
-		calendar.set(Calendar.MONTH, 0);
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		calendar.clear(Calendar.HOUR_OF_DAY);
-		calendar.clear(Calendar.MINUTE);
-		calendar.clear(Calendar.SECOND);
+        mCalendar = Calendar.getInstance();
+		mCalendar.set(Calendar.MONTH, 0);
+		mCalendar.set(Calendar.DAY_OF_MONTH, 1);
+		mCalendar.clear(Calendar.HOUR_OF_DAY);
+		mCalendar.clear(Calendar.MINUTE);
+		mCalendar.clear(Calendar.SECOND);
                    
         mAccountsFilterSpinner = (Spinner) findViewById(R.id.accountsFilteringSpinner);
+        mTimeStepSelectorSpinner = (Spinner) findViewById(R.id.timeStepSelectorSpinner);
         mYearTimeFilter = (TextView) findViewById(R.id.yearTimeFilter);
+        mMonthTimeFilter = (TextView) findViewById(R.id.monthTimeFilter);
         mRollYearForwardButton = (ImageButton) findViewById(R.id.rollYearForwardButton);
         mRollYearBackwardButton = (ImageButton) findViewById(R.id.rollYearBackwardButton);
+        mRollMonthForwardButton = (ImageButton) findViewById(R.id.rollMonthForwardButton);
+        mRollMonthBackwardButton = (ImageButton) findViewById(R.id.rollMonthBackwardButton);
         mShowReportButton = (Button) findViewById(R.id.showReportButton);
         // Hide status bar, but keep title bar
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-               
+
+        // fill up spinners entries
         try {
         	Dao<Account, Integer> accountDao = getHelper().getAccountDao();
 			ActivityUtils.refreshAccountSpinnerEntries(this, accountDao, mAccountsFilterSpinner);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-        updateYearText();      
-        
+        ActivityUtils.fillSpinnerEntriesByArrayAdapter(this, mTimeStepSelectorSpinner, R.array.bar_charts_report_time_steps_list);
+
+        // update time filter values
+        updateYearText();
+        updateMonthText();
+
+        mTimeStepSelectorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                showHideFilterControls();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				finish(); // Close activity on Back button pressing
@@ -86,16 +112,32 @@ public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHe
         
         mRollYearForwardButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View view) {
-        		calendar.add(Calendar.YEAR, 1);
+        		mCalendar.add(Calendar.YEAR, 1);
         		updateYearText();
 			}
         });
         
         mRollYearBackwardButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View view) {
-        		calendar.add(Calendar.YEAR, -1);
+        		mCalendar.add(Calendar.YEAR, -1);
         		updateYearText();
 			}
+        });
+
+        mRollMonthForwardButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mCalendar.add(Calendar.MONTH, 1);
+                updateMonthText();
+                updateYearText();
+            }
+        });
+
+        mRollMonthBackwardButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                mCalendar.add(Calendar.MONTH, -1);
+                updateMonthText();
+                updateYearText();
+            }
         });
         
         mShowReportButton.setOnClickListener(new View.OnClickListener() {
@@ -103,16 +145,45 @@ public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHe
 				new RunBarChartReportJob(context).execute();
 			}
         });
+
+        mTimeStepSelectorSpinner.setSelection(1, true); // Select Month time step as default
 	}
 	
 	public static void callMe(Context c) {
-		Intent intent = new Intent(c, MonthlyBalanceReportActivity.class);
+		Intent intent = new Intent(c, BarChartsReportActivity.class);
 		c.startActivity(intent);
 	}
 	
 	private void updateYearText() {
-		mYearTimeFilter.setText(Integer.toString(calendar.get(Calendar.YEAR)));
+		mYearTimeFilter.setText(Integer.toString(mCalendar.get(Calendar.YEAR)));
 	}
+
+    private void updateMonthText() {
+        //mMonthTimeFilter.setText(Integer.toString(mCalendar.get(Calendar.MONTH)));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMMMMM", Locale.getDefault());
+        String month = dateFormat.format(mCalendar.getTime());
+        mMonthTimeFilter.setText(month);
+    }
+
+    private void showHideFilterControls() {
+        switch (mTimeStepSelectorSpinner.getSelectedItemPosition()) {
+            case 0: {
+                findViewById(R.id.yearTimeFilterBlock).setVisibility(View.VISIBLE);
+                findViewById(R.id.monthTimeFilterBlock).setVisibility(View.VISIBLE);
+                break;
+            }
+            case 1: {
+                findViewById(R.id.yearTimeFilterBlock).setVisibility(View.VISIBLE);
+                findViewById(R.id.monthTimeFilterBlock).setVisibility(View.INVISIBLE);
+                break;
+            }
+            case 2: {
+                findViewById(R.id.yearTimeFilterBlock).setVisibility(View.INVISIBLE);
+                findViewById(R.id.monthTimeFilterBlock).setVisibility(View.INVISIBLE);
+                break;
+            }
+        }
+    }
 	
 	private Intent getBarChartIntent(Context context) throws SQLException {
 		// Set bars labels: "Incomes", "Expenses", "Balance"		
@@ -131,7 +202,7 @@ public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHe
 			}
 		}
 		
-		List<double[]> values = calculateChartValues(accountFilter, calendar.get(Calendar.YEAR));
+		List<double[]> values = calculateChartValues(accountFilter, mCalendar.get(Calendar.YEAR));
 		double minValue = values.get(3)[0]; // "values.get(3)[0]" - getting the minValue from values arrays
 		double maxValue = values.get(3)[1] + values.get(3)[1] * 0.1f; // "values.get(3)[1]" - getting the maxValue from values arrays
 		
@@ -146,7 +217,7 @@ public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHe
 		if (accountCurrency != null) {
 			amountText = amountText + ", " + accountCurrency;
 		}		
-		ChartUtils.setChartSettings(renderer, balanceForYearText + " " + calendar.get(Calendar.YEAR), 
+		ChartUtils.setChartSettings(renderer, balanceForYearText + " " + mCalendar.get(Calendar.YEAR),
 				getResources().getString(R.string.month_text), amountText, 
 				0.5, 12.5, minValue, maxValue, Color.GRAY, Color.LTGRAY);
         for (SimpleSeriesRenderer simpleRenderer : renderer.getSeriesRenderers()) {
@@ -187,10 +258,10 @@ public class MonthlyBalanceReportActivity extends OrmLiteBaseActivity<DatabaseHe
 		
 		for (int month = 0; month < 12; month++) {
 			timeRange.setStartTime(calendar.getTimeInMillis());
-			//Log.d(TAG, "StartDate: " + DateFormat.format("dd.MM.yy hh:mm:ss", calendar) + "(" + month + ")");
+			//Log.d(TAG, "StartDate: " + DateFormat.format("dd.MM.yy hh:mm:ss", mCalendar) + "(" + month + ")");
 			calendar.add(Calendar.MONTH, 1);
 			timeRange.setEndTime(calendar.getTimeInMillis());
-			//Log.d(TAG, "EndDate: " + DateFormat.format("dd.MM.yy hh:mm:ss", calendar) + "(" + month + ")");
+			//Log.d(TAG, "EndDate: " + DateFormat.format("dd.MM.yy hh:mm:ss", mCalendar) + "(" + month + ")");
 			
 			income = toDoubleAndRound(CalcUtils.getSumOfRecords(recordDao, accountFilter, false, timeRange));
 			expense = toDoubleAndRound(CalcUtils.getSumOfRecords(recordDao, accountFilter, true, timeRange));

@@ -76,7 +76,7 @@
                   android:screenOrientation="portrait">
         </activity>
         
-        <activity android:name=".activities.reports.MonthlyBalanceReportActivity"
+        <activity android:name=".activities.reports.BarChartsReportActivity"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>

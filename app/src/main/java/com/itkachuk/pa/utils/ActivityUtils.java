@@ -140,6 +140,37 @@ public class ActivityUtils {
 			}
 		}
 	}
+
+    /**
+     * Common method to fill up the spinner entries from resource array (works only with entries of String type)
+     * @param context
+     * @param spinner Spinner UI object
+     * @param arrayId ID of the resource array
+     */
+    public static void fillSpinnerEntriesByArrayAdapter(Context context, Spinner spinner, int arrayId) {
+        String[] entriesList = context.getResources().getStringArray(arrayId);
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, entriesList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
+    /**
+     * Common method to select the spinner entry of String type
+     * @param spinner Spinner UI object
+     * @param entryToSelect
+     */
+    public static void selectSpinnerEntry(Spinner spinner, String entryToSelect) {
+        SpinnerAdapter adapter = spinner.getAdapter();
+        int count = adapter.getCount();
+        for (int i = 0; i < count; i++) {
+            String entry = (String) adapter.getItem(i);
+            if (entry != null && entry.equals(entryToSelect)) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
 	
 	/**
 	 * 

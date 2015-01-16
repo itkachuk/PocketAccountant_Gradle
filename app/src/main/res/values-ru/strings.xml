@@ -50,7 +50,8 @@
 	<string name="year_text">Год</string>
 	
 	<!-- Monthly Balance Report Activity -->
-	<string name="balance_for_year_text">Баланс за год:</string>	
+	<string name="balance_for_year_text">Баланс за год:</string>
+
 	
 	<!-- Reports Filtering Activity -->
 	<string name="what_to_show_text">Показать записи</string>
@@ -125,7 +126,7 @@
 	<!-- Main Account -->
 	<string name="main_account_name">[основной]</string>
 	<string name="main_account_description">Основной счёт программы. Не может быть удалён пользователем.</string>
-	
+
 	<!-- Predefined Application Content -->
 	<!-- Categories -->
 	<string-array name="expense_categories">

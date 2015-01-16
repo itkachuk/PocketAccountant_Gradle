@@ -49,9 +49,16 @@
 	<string name="quarter_text">Quarter</string>
 	<string name="year_text">Year</string>
 	
-	<!-- Monthly Balance Report Activity -->
+	<!-- Bar Charts Report Activity -->
 	<string name="balance_for_year_text">Balance for year:</string>
-	
+    <string name="bar_charts_report_time_steps_label">Show data calculated per:</string>
+    <!-- Chart report type Spinner items -->
+    <string-array name="bar_charts_report_time_steps_list">
+        <item>Day</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
+
 	<!-- Reports Filtering Activity -->
 	<string name="what_to_show_text">To Show</string>
 	<string name="time_interval_text">Time Interval</string>
@@ -125,7 +132,7 @@
 	<!-- Main Account -->
 	<string name="main_account_name">[main]</string>
 	<string name="main_account_description">The main account of program. Can\'t be removed</string>
-	
+
 	<!-- Predefined Application Content -->
 	<!-- Categories -->
 	<string-array name="expense_categories">
