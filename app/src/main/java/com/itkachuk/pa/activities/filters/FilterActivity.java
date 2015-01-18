@@ -5,13 +5,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import com.itkachuk.pa.R;
-import com.itkachuk.pa.activities.editors.PreferencesEditorActivity;
-import com.itkachuk.pa.activities.editors.RecordEditorActivity;
-import com.itkachuk.pa.activities.menus.ReportsMenuActivity;
 import com.itkachuk.pa.activities.reports.CommonReportActivity;
 import com.itkachuk.pa.activities.reports.ConsolidatedReportActivity;
 import com.itkachuk.pa.activities.reports.HistoryReportActivity;
@@ -20,7 +16,6 @@ import com.itkachuk.pa.entities.Category;
 import com.itkachuk.pa.entities.DatabaseHelper;
 import com.itkachuk.pa.utils.ActivityUtils;
 import com.itkachuk.pa.utils.DateUtils;
-import com.itkachuk.pa.utils.PreferencesUtils;
 import com.itkachuk.pa.utils.TimeRange;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
@@ -29,19 +24,15 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 public class FilterActivity extends OrmLiteBaseActivity<DatabaseHelper> {
@@ -456,13 +447,13 @@ public class FilterActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		String[] filterItemsList;		
 		if (getReportName().equals("Consolidated")) {
 			filterItemsList = new String[2];
-			filterItemsList[0] = getResources().getString(R.string.expenses_text);
-			filterItemsList[1] = getResources().getString(R.string.incomes_text);			
+			filterItemsList[0] = getResources().getString(R.string.Expenses_text);
+			filterItemsList[1] = getResources().getString(R.string.Incomes_text);
 		} else {
 			filterItemsList = new String[3];
 			filterItemsList[0] = getResources().getString(R.string.all_text);
-			filterItemsList[1] = getResources().getString(R.string.expenses_text);
-			filterItemsList[2] = getResources().getString(R.string.incomes_text);
+			filterItemsList[1] = getResources().getString(R.string.Expenses_text);
+			filterItemsList[2] = getResources().getString(R.string.Incomes_text);
 		}		
 		ArrayAdapter<String> adapter =
 				new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, filterItemsList);

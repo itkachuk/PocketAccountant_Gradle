@@ -93,7 +93,7 @@ public class ReportsMenuActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 	      	case R.id.consolidated_report_button:
 	      		Log.d(TAG, "clicked on \"Consolidated Report\"");
 	      		//FilterActivity.callMe(ReportsMenuActivity.this, "Consolidated");
-	      		recordsToShowFilter = getResources().getString(R.string.expenses_text);
+	      		recordsToShowFilter = getResources().getString(R.string.Expenses_text);
 	      		ConsolidatedReportActivity.callMe(ReportsMenuActivity.this, ReportsMenuActivity.class.getName(), recordsToShowFilter, 
 	      				accountsFilter, DateUtils.DEFAULT_START_DATE, DateUtils.DEFAULT_END_DATE);
 	      	break;

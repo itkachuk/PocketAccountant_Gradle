@@ -62,8 +62,8 @@
 	<string name="apply_filter_button_label">Застосувати фільтр</string>
 	<!-- Filtering Spinner items -->
 	<string name="all_text">Всі</string>
-	<string name="incomes_text">Прибутки</string>
-	<string name="expenses_text">Витрати</string>
+	<string name="Incomes_text">Прибутки</string>
+	<string name="Expenses_text">Витрати</string>
 	<!-- Time-filtering Spinner items -->
 	<string-array name="time_ranges_list">
         <item>Весь час</item>

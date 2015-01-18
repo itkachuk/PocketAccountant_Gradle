@@ -4,9 +4,6 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -30,7 +27,6 @@ import com.itkachuk.pa.R;
 import com.itkachuk.pa.activities.editors.RecordEditorActivity;
 import com.itkachuk.pa.activities.filters.FilterActivity;
 import com.itkachuk.pa.activities.menus.ReportsMenuActivity;
-import com.itkachuk.pa.entities.Account;
 import com.itkachuk.pa.entities.Category;
 import com.itkachuk.pa.entities.DatabaseHelper;
 import com.itkachuk.pa.entities.IncomeOrExpenseRecord;
@@ -217,10 +213,10 @@ public class HistoryReportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 		queryBuilder = recordDao.queryBuilder();
 		Where<IncomeOrExpenseRecord, Integer> where = queryBuilder.where();
 		
-		if (mRecordsToShowFilter != null && mRecordsToShowFilter.equals(getResources().getString(R.string.expenses_text))) {
+		if (mRecordsToShowFilter != null && mRecordsToShowFilter.equals(getResources().getString(R.string.Expenses_text))) {
 			where.eq(IncomeOrExpenseRecord.IS_EXPENSE_FIELD_NAME, true);
 			whereClauseStarted = true;
-		} else if (mRecordsToShowFilter != null && mRecordsToShowFilter.equals(getResources().getString(R.string.incomes_text))) {
+		} else if (mRecordsToShowFilter != null && mRecordsToShowFilter.equals(getResources().getString(R.string.Incomes_text))) {
 			where.eq(IncomeOrExpenseRecord.IS_EXPENSE_FIELD_NAME, false);
 			whereClauseStarted = true;
 		}

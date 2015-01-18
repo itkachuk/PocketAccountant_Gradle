@@ -1,59 +1,39 @@
 package com.itkachuk.pa.activities.reports;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-import org.achartengine.renderer.XYMultipleSeriesRenderer.Orientation;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.itkachuk.pa.R;
-import com.itkachuk.pa.activities.editors.PreferencesEditorActivity;
-import com.itkachuk.pa.activities.editors.RecordEditorActivity;
 import com.itkachuk.pa.activities.filters.FilterActivity;
 import com.itkachuk.pa.activities.menus.ReportsMenuActivity;
-import com.itkachuk.pa.entities.Account;
 import com.itkachuk.pa.entities.Category;
 import com.itkachuk.pa.entities.DatabaseHelper;
 import com.itkachuk.pa.entities.IncomeOrExpenseRecord;
 import com.itkachuk.pa.utils.ActivityUtils;
 import com.itkachuk.pa.utils.CalcUtils;
-import com.itkachuk.pa.utils.ChartUtils;
 import com.itkachuk.pa.utils.DateUtils;
-import com.itkachuk.pa.utils.PreferencesUtils;
 import com.itkachuk.pa.utils.TimeRange;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.j256.ormlite.stmt.Where;
 
 public class ConsolidatedReportActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 	private static final String TAG = "PocketAccountant";
@@ -293,7 +273,7 @@ public class ConsolidatedReportActivity extends OrmLiteBaseActivity<DatabaseHelp
 	}
 	
 	private void parseFilters() {
-		if (getRecordsToShowFilter().equals(getResources().getString(R.string.expenses_text)))
+		if (getRecordsToShowFilter().equals(getResources().getString(R.string.Expenses_text)))
 			mRecordsToShowFilter = true;
 		else mRecordsToShowFilter = false;
 		mAccountsFilter = getAccountsFilter();		

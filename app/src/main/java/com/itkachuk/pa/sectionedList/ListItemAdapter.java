@@ -55,10 +55,10 @@ public class ListItemAdapter extends ArrayAdapter<SectionedListItem> {
 					v = vi.inflate(R.layout.category_row, null);
 					fillText(v, R.id.categoryName, category.getName());
 					if (category.isExpense()) {
-						fillText(v, R.id.categoryGroup, context.getResources().getString(R.string.expenses_text));
+						fillText(v, R.id.categoryGroup, context.getResources().getString(R.string.Expenses_text));
 						setTextColor(v, R.id.categoryGroup, context.getResources().getColor(R.color.expense_amount_color));
 					} else {
-						fillText(v, R.id.categoryGroup, context.getResources().getString(R.string.incomes_text));
+						fillText(v, R.id.categoryGroup, context.getResources().getString(R.string.Incomes_text));
 						setTextColor(v, R.id.categoryGroup, context.getResources().getColor(R.color.income_amount_color));
 					}	
 				}

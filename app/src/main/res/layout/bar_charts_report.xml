@@ -29,12 +29,12 @@
         <LinearLayout android:orientation="vertical"
             android:id="@+id/yearTimeFilterBlock"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip">
 
             <TextView android:text="@string/year_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"/>
+                android:layout_height="wrap_content"/>
 
             <LinearLayout android:orientation="horizontal"
                 android:layout_width="fill_parent"
@@ -66,12 +66,12 @@
         <LinearLayout android:orientation="vertical"
             android:id="@+id/monthTimeFilterBlock"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip">
 
             <TextView android:text="@string/month_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"/>
+                android:layout_height="wrap_content"/>
 
             <LinearLayout android:orientation="horizontal"
                 android:layout_width="fill_parent"
@@ -100,6 +100,24 @@
             </LinearLayout>
         </LinearLayout>
 
+        <RadioGroup android:orientation="vertical"
+            android:id="@+id/incomesExpensesFilterBlock"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Expenses_text"
+                android:id="@+id/expensesRadioButton" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Incomes_text"
+                android:id="@+id/incomesRadioButton" />
+        </RadioGroup>
     </LinearLayout>
 		
     <LinearLayout android:orientation="horizontal" 

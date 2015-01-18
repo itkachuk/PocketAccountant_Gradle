@@ -53,8 +53,10 @@
 	
 	<!-- Bar Charts Report Activity -->
 	<string name="charts_for_all_time_text">Annual incomes/expenses</string>
-	<string name="charts_for_year_text">Monthly incomes/expenses for year:</string>
-	<string name="charts_for_month_text">Daily incomes/expenses for month:</string>
+	<string name="charts_for_year_text">Monthly incomes/expenses:</string>
+	<string name="charts_for_month_text">Daily</string>
+	<string name="expenses_text">expenses</string>
+	<string name="incomes_text">incomes</string>
     <string name="bar_charts_report_time_steps_label">Show data calculated per:</string>
     <!-- Chart report type Spinner items -->
     <string-array name="bar_charts_report_time_steps_list">
@@ -72,8 +74,8 @@
 	<string name="apply_filter_button_label">Apply Filter</string>
 	<!-- Filtering Spinner items -->
 	<string name="all_text">All</string>
-	<string name="incomes_text">Incomes</string>
-	<string name="expenses_text">Expenses</string>
+	<string name="Incomes_text">Incomes</string>
+	<string name="Expenses_text">Expenses</string>
 	<!-- Time-filtering Spinner items -->
 	<string-array name="time_ranges_list">
         <item>All Time</item>
