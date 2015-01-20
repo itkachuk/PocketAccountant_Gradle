@@ -33,7 +33,7 @@
 	<string name="history_report_label">История</string> 
 	<string name="common_report_label">Общий</string> 
 	<string name="consolidated_report_label">Сводный</string>
-	<string name="monthly_balance_report_label">Ежемесячный баланс</string>
+	<string name="bar_charts_report_label">Чарты</string>
 	
 	<!-- History Report Activity -->
 	<string name="page_text">Стр.</string>
@@ -43,15 +43,42 @@
 	<string name="income_text">Доход</string>
 	<string name="expense_text">Расход</string>
 	<string name="balance_text">Баланс</string>
+    <string name="profit_text">Прибыль</string>
 	<string name="current_text">Текущий</string>
 	<string name="past_text">Прошлый</string>
+    <string name="day_text">День</string>
 	<string name="month_text">Месяц</string>
 	<string name="quarter_text">Квартал</string>
 	<string name="year_text">Год</string>
-	
-	<!-- Monthly Balance Report Activity -->
-	<string name="balance_for_year_text">Баланс за год:</string>
 
+    <!-- Bar Charts Report Activity -->
+    <string name="charts_for_all_time_text">Годовые доходы/расходы</string>
+    <string name="charts_for_year_text">Месячные доходы/расходы:</string>
+    <string name="charts_for_month_text">Подневные</string>
+    <string name="expenses_text">расходы</string>
+    <string name="incomes_text">доходы</string>
+    <string name="bar_charts_report_time_steps_label">Показать расчёты</string>
+    <!-- Chart report type Spinner items -->
+    <string-array name="bar_charts_report_time_steps_list">
+        <item>Подневно</item>
+        <item>Помесячно</item>
+        <item>Годовые</item>
+    </string-array>
+    <!-- Month names -->
+    <string-array name="month_names_list">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
 	
 	<!-- Reports Filtering Activity -->
 	<string name="what_to_show_text">Показать записи</string>
@@ -159,6 +186,5 @@
 	    <item>Расходы</item>
         <item>Доходы</item>
     </string-array>
-    
 
 </resources>

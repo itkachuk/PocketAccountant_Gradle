@@ -165,9 +165,10 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
     }
 
     private String getMonthStringFromDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMMMMM", Locale.getDefault());
-        String month = dateFormat.format(mCalendar.getTime());
-        return month;
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMMMMM", Locale.getDefault());
+//        String month = dateFormat.format(mCalendar.getTime());
+        String[] monthArray = context.getResources().getStringArray(R.array.month_names_list);
+        return monthArray[mCalendar.get(Calendar.MONTH)];
     }
 
     private void showHideFilterControls() {

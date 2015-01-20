@@ -11,9 +11,9 @@
        
 	<!-- Startup Activity -->
 	<string name="main_title">Кишеньковий Бухгалтер</string> 
-	<string name="new_expense_label">Витрата</string> 
-	<string name="new_income_label">Прибуток</string>
-	<string name="reports_label">Звіти</string>  
+	<string name="new_expense_label">Витрата</string>
+    <string name="new_income_label">Дохід</string>
+    <string name="reports_label">Звіти</string>
 	<string name="service_label">Сервіс</string> 
 	<string name="exit_label">Вихід</string>
 	
@@ -33,25 +33,52 @@
 	<string name="history_report_label">Історія</string> 
 	<string name="common_report_label">Загальнмй</string> 
 	<string name="consolidated_report_label">Зведений</string>
-	<string name="monthly_balance_report_label">Щомісячний баланс</string>
+	<string name="bar_charts_report_label">Чарти</string>
 	
 	<!-- History Report Activity -->
 	<string name="page_text">Стор.</string>
 	
 	<!-- Common Report Activity -->
-	<string name="inc_exp_per_month_text">Прибутки/Витрати за місяць</string>
-	<string name="income_text">Прибуток</string>
+	<string name="inc_exp_per_month_text">Доходи/Витрати за місяць</string>
+	<string name="income_text">Дохід</string>
 	<string name="expense_text">Витрата</string>
 	<string name="balance_text">Баланс</string>
+    <string name="profit_text">Прибуток</string>
 	<string name="current_text">Поточний</string>
 	<string name="past_text">Минулий</string>
+    <string name="day_text">День</string>
 	<string name="month_text">Місяць</string>
 	<string name="quarter_text">Квартал</string>
 	<string name="year_text">Рік</string>
 	
-	<!-- Monthly Balance Report Activity -->
-	<string name="balance_for_year_text">Баланс за рік:</string>
-
+	<!-- Bar Charts Report Activity -->
+    <string name="charts_for_all_time_text">Річні доходи/витрати</string>
+    <string name="charts_for_year_text">Місячні доходи/витрати:</string>
+    <string name="charts_for_month_text">Щоденні</string>
+    <string name="expenses_text">витрати</string>
+    <string name="incomes_text">доходи</string>
+    <string name="bar_charts_report_time_steps_label">Показати розрахунки</string>
+    <!-- Chart report type Spinner items -->
+    <string-array name="bar_charts_report_time_steps_list">
+        <item>Поденно</item>
+        <item>Помісячно</item>
+        <item>Річні</item>
+    </string-array>
+    <!-- Month names -->
+    <string-array name="month_names_list">
+        <item>Січень</item>
+        <item>Лютий</item>
+        <item>Березень</item>
+        <item>Квітень</item>
+        <item>Травень</item>
+        <item>Червень</item>
+        <item>Липень</item>
+        <item>Серпень</item>
+        <item>Вересень</item>
+        <item>Жовтень</item>
+        <item>Листопад</item>
+        <item>Грудень</item>
+    </string-array>
 	
 	<!-- Reports Filtering Activity -->
 	<string name="what_to_show_text">Показати записи</string>
@@ -62,7 +89,7 @@
 	<string name="apply_filter_button_label">Застосувати фільтр</string>
 	<!-- Filtering Spinner items -->
 	<string name="all_text">Всі</string>
-	<string name="Incomes_text">Прибутки</string>
+	<string name="Incomes_text">Доходи</string>
 	<string name="Expenses_text">Витрати</string>
 	<!-- Time-filtering Spinner items -->
 	<string-array name="time_ranges_list">
@@ -82,7 +109,7 @@
 	
 	<!-- Service menu Activity -->
 	<string name="service_menu_header_text">Сервіс</string>
-	<string name="accounts_label">Рахунок</string> 
+	<string name="accounts_label">Рахунки</string>
 	<string name="categories_label">Категорії</string> 
 	<string name="program_settings_label">Налаштування програми</string>
 	
@@ -157,8 +184,8 @@
     <!-- Category groups -->
     <string-array name="category_groups_array">
 	    <item>Витрати</item>
-        <item>Прибутки</item>
+        <item>Доходи</item>
     </string-array>
-    
+
 
 </resources>
