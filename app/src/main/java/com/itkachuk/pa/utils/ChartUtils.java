@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
@@ -48,14 +49,18 @@ public class ChartUtils {
 	public static XYMultipleSeriesDataset buildBarDataset(String[] titles, List<double[]> values) {
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		int length = titles.length;
+        int xStartIndex = (int) values.get(3)[2]; // get X min value
 		for (int i = 0; i < length; i++) {
-			CategorySeries series = new CategorySeries(titles[i]);
+			//CategorySeries series = new CategorySeries(titles[i]); // Changed to XYSeries, CategorySeries didn't allow to set x-axis position
+            XYSeries xySeries = new XYSeries(titles[i]);
 			double[] v = values.get(i);
 			int seriesLength = v.length;
-			for (int k = 0; k < seriesLength; k++) {
-				series.add(v[k]);
+			for (int k = 0, x = xStartIndex; k < seriesLength; k++, x++) {
+				//series.add(v[k]);
+                xySeries.add(x, v[k]);
 			}
-			dataset.addSeries(series.toXYSeries());
+			//dataset.addSeries(series.toXYSeries());
+			dataset.addSeries(xySeries);
 		}
 		return dataset;
 	}
@@ -84,7 +89,7 @@ public class ChartUtils {
 	/**
 	 * Builds a bar multiple series renderer to use the provided colors.
 	 * 
-	 * @param colors the series renderers colors
+	 * @param color the series renderers colors
 	 * @return the bar multiple series renderer
 	 */
 	public static XYMultipleSeriesRenderer buildBarSimpleRenderer(int color) {
