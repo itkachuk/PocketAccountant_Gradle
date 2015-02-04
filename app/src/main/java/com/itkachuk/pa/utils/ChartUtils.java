@@ -59,6 +59,38 @@ public class ChartUtils {
         renderer.setApplyBackgroundColor(true);
 	}
 
+    public static void setChartRendererDynamicSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
+                                                String yTitle, double xMin, double xMax, double yMin, double yMax) {
+        renderer.setChartTitle(title);
+        renderer.setXTitle(xTitle);
+        renderer.setYTitle(yTitle);
+        renderer.setXAxisMin(xMin);
+        renderer.setXAxisMax(xMax);
+        renderer.setYAxisMin(yMin);
+        renderer.setYAxisMax(yMax);
+        renderer.setXLabels((int) (xMax - xMin)); // number of X-axis points
+
+    }
+
+    public static void setChartRendererStaticSettings(XYMultipleSeriesRenderer renderer, int axesColor,
+                                                int labelsColor, int backgroundColor) {
+        renderer.setAxesColor(axesColor);
+        renderer.setLabelsColor(labelsColor);
+        renderer.setBackgroundColor(backgroundColor);
+
+        renderer.setYLabels(10);
+        renderer.setXLabelsAlign(Paint.Align.LEFT);
+        renderer.setYLabelsAlign(Paint.Align.LEFT);
+        renderer.setPanEnabled(true, true);
+        renderer.setMargins(new int[]{30, 25, 20, 10});
+        renderer.setZoomButtonsVisible(false);
+        renderer.setZoomEnabled(true);
+        renderer.setZoomRate(1.0f);
+        renderer.setBarSpacing(0.3f);
+
+        renderer.setApplyBackgroundColor(true);
+    }
+
 	/**
 	 * Builds a bar multiple series dataset using the provided values.
 	 * 
