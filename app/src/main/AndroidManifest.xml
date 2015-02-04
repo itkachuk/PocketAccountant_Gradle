@@ -63,6 +63,10 @@
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>
+        <activity android:name=".activities.filters.BarChartsFilterActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
         
         <activity android:name=".activities.reports.HistoryReportActivity"
                   android:screenOrientation="portrait">
@@ -75,8 +79,12 @@
         <activity android:name=".activities.reports.ConsolidatedReportActivity"
                   android:screenOrientation="portrait">
         </activity>
-        
+
         <activity android:name=".activities.reports.BarChartsReportActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+        </activity>
+        <activity android:name=".activities.reports.BarChartsReportActivityNew"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         </activity>

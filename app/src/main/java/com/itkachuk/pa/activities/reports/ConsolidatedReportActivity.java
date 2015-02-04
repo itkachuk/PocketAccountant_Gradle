@@ -197,7 +197,7 @@ public class ConsolidatedReportActivity extends OrmLiteBaseActivity<DatabaseHelp
 /*	private void prepareRendererAndDataSet(List<String[]> list, String totalAmount) {
 		float totalSum = Float.valueOf(totalAmount);
 		
-		ChartUtils.setChartSettings(mRenderer, "Incomes/Expenses per category", "Amount", "Categories", 
+		ChartUtils.setChartRendererSettings(mRenderer, "Incomes/Expenses per category", "Amount", "Categories",
 				0, 25, 0, totalSum, Color.GRAY, Color.LTGRAY);
 		
 		mRenderer.setXLabels(1);

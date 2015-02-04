@@ -1,13 +1,9 @@
 package com.itkachuk.pa.activities.reports;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.chart.BarChart.Type;
@@ -51,18 +47,13 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 	private Spinner mTimeStepSelectorSpinner;
 	private TextView mYearTimeFilter;
     private TextView mMonthTimeFilter;
-	private ImageButton mRollMonthForwardButton;
-	private ImageButton mRollMonthBackwardButton;
-    private ImageButton mRollYearForwardButton;
-    private ImageButton mRollYearBackwardButton;
-	private Button mShowReportButton;
-	
-	private Context context;
+
+    private Context context;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bar_charts_report);
+        setContentView(R.layout.bar_charts_filter_editor);
         context = this;
         mCalendar = Calendar.getInstance();
 		mCalendar.set(Calendar.MONTH, 0);
@@ -75,11 +66,11 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
         mTimeStepSelectorSpinner = (Spinner) findViewById(R.id.timeStepSelectorSpinner);
         mYearTimeFilter = (TextView) findViewById(R.id.yearTimeFilter);
         mMonthTimeFilter = (TextView) findViewById(R.id.monthTimeFilter);
-        mRollYearForwardButton = (ImageButton) findViewById(R.id.rollYearForwardButton);
-        mRollYearBackwardButton = (ImageButton) findViewById(R.id.rollYearBackwardButton);
-        mRollMonthForwardButton = (ImageButton) findViewById(R.id.rollMonthForwardButton);
-        mRollMonthBackwardButton = (ImageButton) findViewById(R.id.rollMonthBackwardButton);
-        mShowReportButton = (Button) findViewById(R.id.showReportButton);
+        ImageButton mRollYearForwardButton = (ImageButton) findViewById(R.id.rollYearForwardButton);
+        ImageButton mRollYearBackwardButton = (ImageButton) findViewById(R.id.rollYearBackwardButton);
+        ImageButton mRollMonthForwardButton = (ImageButton) findViewById(R.id.rollMonthForwardButton);
+        ImageButton mRollMonthBackwardButton = (ImageButton) findViewById(R.id.rollMonthBackwardButton);
+        Button mShowReportButton = (Button) findViewById(R.id.showReportButton);
         // Hide status bar, but keep title bar
 		//getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -115,17 +106,17 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		});
         
         mRollYearForwardButton.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View view) {
-        		mCalendar.add(Calendar.YEAR, 1);
-        		updateYearText();
-			}
+            public void onClick(View view) {
+                mCalendar.add(Calendar.YEAR, 1);
+                updateYearText();
+            }
         });
         
         mRollYearBackwardButton.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View view) {
-        		mCalendar.add(Calendar.YEAR, -1);
-        		updateYearText();
-			}
+            public void onClick(View view) {
+                mCalendar.add(Calendar.YEAR, -1);
+                updateYearText();
+            }
         });
 
         mRollMonthForwardButton.setOnClickListener(new View.OnClickListener() {
@@ -250,7 +241,7 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
             case 2: { // Year
                 chartTitle = getResources().getString(R.string.charts_for_all_time_text);
                 xAxisTitle = getResources().getString(R.string.year_text);
-                values = calculateChartValuesPerYear(accountFilter); // TODO
+                values = calculateChartValuesPerYear(accountFilter);
                 break;
             }
         }
@@ -268,8 +259,8 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		if (accountCurrency != null) {
 			amountText = amountText + ", " + accountCurrency;
 		}		
-		ChartUtils.setChartSettings(renderer, chartTitle, xAxisTitle, amountText,
-                xMinValue, xMaxValue, yMinValue, yMaxValue, Color.GRAY, Color.LTGRAY);
+		ChartUtils.setChartRendererSettings(renderer, chartTitle, xAxisTitle, amountText,
+                xMinValue, xMaxValue, yMinValue, yMaxValue, Color.GRAY, Color.LTGRAY, getResources().getColor(R.color.background));
         for (SimpleSeriesRenderer simpleRenderer : renderer.getSeriesRenderers()) {
             simpleRenderer.setDisplayChartValues(true);
             //simpleRenderer.setDisplayChartValuesDistance(10); // try to set minimal distance - need to test
@@ -285,7 +276,6 @@ public class BarChartsReportActivity extends OrmLiteBaseActivity<DatabaseHelper>
 		renderer.setZoomEnabled(true);
 		renderer.setZoomRate(1.0f);
 		renderer.setBarSpacing(0.3f);
-        renderer.setBackgroundColor(getResources().getColor(R.color.background));
         renderer.setApplyBackgroundColor(true);
 		return ChartFactory.getBarChartIntent(context, ChartUtils.buildBarDataset(barsTitles, values), renderer,
 				Type.DEFAULT);

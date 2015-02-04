@@ -1,5 +1,9 @@
 package com.itkachuk.pa.utils;
 
+import android.graphics.Paint;
+
+import com.itkachuk.pa.R;
+
 import java.util.List;
 
 import org.achartengine.model.CategorySeries;
@@ -24,10 +28,11 @@ public class ChartUtils {
 	 * @param yMax the maximum value on the Y axis
 	 * @param axesColor the axes color
 	 * @param labelsColor the labels color
+     * @param backgroundColor the color for background
 	 */
-	public static void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
-			String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor,
-			int labelsColor) {
+	public static void setChartRendererSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
+                                                String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor,
+                                                int labelsColor, int backgroundColor) {
 		renderer.setChartTitle(title);
 		renderer.setXTitle(xTitle);
 		renderer.setYTitle(yTitle);
@@ -35,8 +40,23 @@ public class ChartUtils {
 		renderer.setXAxisMax(xMax);
 		renderer.setYAxisMin(yMin);
 		renderer.setYAxisMax(yMax);
+        renderer.setXLabels((int) (xMax - xMin)); // number of X-axis points
 		renderer.setAxesColor(axesColor);
 		renderer.setLabelsColor(labelsColor);
+        renderer.setBackgroundColor(backgroundColor);
+
+        // Static settings
+        renderer.setYLabels(10);
+        renderer.setXLabelsAlign(Paint.Align.LEFT);
+        renderer.setYLabelsAlign(Paint.Align.LEFT);
+        renderer.setPanEnabled(true, true);
+        renderer.setMargins(new int[]{30, 25, 20, 10});
+        renderer.setZoomButtonsVisible(false);
+        renderer.setZoomEnabled(true);
+        renderer.setZoomRate(1.0f);
+        renderer.setBarSpacing(0.3f);
+
+        renderer.setApplyBackgroundColor(true);
 	}
 
 	/**

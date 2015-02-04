@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.itkachuk.pa.R;
+import com.itkachuk.pa.activities.filters.BarChartsFilterActivity;
 import com.itkachuk.pa.activities.reports.BarChartsReportActivity;
 import com.itkachuk.pa.activities.reports.CommonReportActivity;
 import com.itkachuk.pa.activities.reports.ConsolidatedReportActivity;
@@ -31,8 +32,8 @@ public class ReportsMenuActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
         commonReportButton.setOnClickListener(this);
         View consolidatedReportButton = findViewById(R.id.consolidated_report_button);
         consolidatedReportButton.setOnClickListener(this);
-        View balanceOverTimeReportButton = findViewById(R.id.monthly_balance_report_button);
-        balanceOverTimeReportButton.setOnClickListener(this);
+        View barChartsReportButton = findViewById(R.id.bar_charts_report_button);
+        barChartsReportButton.setOnClickListener(this);
         
         findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
@@ -98,10 +99,10 @@ public class ReportsMenuActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 	      				accountsFilter, DateUtils.DEFAULT_START_DATE, DateUtils.DEFAULT_END_DATE);
 	      	break;
 	      	
-	      	case R.id.monthly_balance_report_button:
-	      		Log.d(TAG, "clicked on \"Monthly Balance Report\"");
+	      	case R.id.bar_charts_report_button:
+	      		Log.d(TAG, "clicked on \"Charts Report\"");
 	      		
-	      		BarChartsReportActivity.callMe(ReportsMenuActivity.this);
+	      		BarChartsFilterActivity.callMe(ReportsMenuActivity.this);
 	      	break;
 		}	
 	}
