@@ -7,7 +7,6 @@ import android.view.View.OnClickListener;
 
 import com.itkachuk.pa.R;
 import com.itkachuk.pa.activities.filters.BarChartsFilterActivity;
-import com.itkachuk.pa.activities.reports.BarChartsReportActivity;
 import com.itkachuk.pa.activities.reports.CommonReportActivity;
 import com.itkachuk.pa.activities.reports.ConsolidatedReportActivity;
 import com.itkachuk.pa.activities.reports.HistoryReportActivity;

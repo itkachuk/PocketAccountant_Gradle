@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itkachuk.pa.R;
-import com.itkachuk.pa.activities.reports.BarChartsReportActivityNew;
+import com.itkachuk.pa.activities.reports.BarChartsReportActivity;
 import com.itkachuk.pa.entities.Account;
 import com.itkachuk.pa.entities.DatabaseHelper;
 import com.itkachuk.pa.entities.IncomeOrExpenseRecord;
@@ -458,7 +458,7 @@ public class BarChartsFilterActivity extends OrmLiteBaseActivity<DatabaseHelper>
                 monthFilter = mCalendar.get(Calendar.MONTH);
                 isExpenseFilter = ((RadioButton)findViewById(R.id.expensesRadioButton)).isChecked();
 
-                BarChartsReportActivityNew.callMe(context, values, account.getId(), account.getCurrency(), timeStepFilter, yearFilter, monthFilter, isExpenseFilter);
+                BarChartsReportActivity.callMe(context, values, account.getId(), account.getCurrency(), timeStepFilter, yearFilter, monthFilter, isExpenseFilter);
             } else {
                 Toast.makeText(getApplicationContext(), getResources().getText(R.string.no_data_message), Toast.LENGTH_LONG).show();
             }
