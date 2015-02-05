@@ -1,17 +1,14 @@
 package com.itkachuk.pa.utils;
 
+import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.itkachuk.pa.R;
-
-import java.util.List;
-
-import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
+
+import java.util.List;
 
 public class ChartUtils {
 
@@ -43,7 +40,8 @@ public class ChartUtils {
         renderer.setXLabels((int) (xMax - xMin)); // number of X-axis points
 		renderer.setAxesColor(axesColor);
 		renderer.setLabelsColor(labelsColor);
-        renderer.setBackgroundColor(backgroundColor);
+        //renderer.setBackgroundColor(backgroundColor);
+        //renderer.setApplyBackgroundColor(true);
 
         // Static settings
         renderer.setYLabels(10);
@@ -56,7 +54,10 @@ public class ChartUtils {
         renderer.setZoomRate(1.0f);
         renderer.setBarSpacing(0.3f);
 
-        renderer.setApplyBackgroundColor(true);
+        for (SimpleSeriesRenderer simpleRenderer : renderer.getSeriesRenderers()) {
+            simpleRenderer.setDisplayChartValues(true);
+            simpleRenderer.setDisplayChartValuesDistance(10); // try to set minimal distance - need to test
+        }
 	}
 
     public static void setChartRendererDynamicSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
@@ -72,11 +73,11 @@ public class ChartUtils {
 
     }
 
-    public static void setChartRendererStaticSettings(XYMultipleSeriesRenderer renderer, int axesColor,
-                                                int labelsColor, int backgroundColor) {
-        renderer.setAxesColor(axesColor);
-        renderer.setLabelsColor(labelsColor);
+    public static void setChartRendererStaticSettings(XYMultipleSeriesRenderer renderer, int backgroundColor) {
+        renderer.setAxesColor(Color.GRAY);
+        renderer.setLabelsColor(Color.LTGRAY);
         renderer.setBackgroundColor(backgroundColor);
+        renderer.setApplyBackgroundColor(true);
 
         renderer.setYLabels(10);
         renderer.setXLabelsAlign(Paint.Align.LEFT);
@@ -88,7 +89,10 @@ public class ChartUtils {
         renderer.setZoomRate(1.0f);
         renderer.setBarSpacing(0.3f);
 
-        renderer.setApplyBackgroundColor(true);
+        for (SimpleSeriesRenderer simpleRenderer : renderer.getSeriesRenderers()) {
+            simpleRenderer.setDisplayChartValues(true);
+            simpleRenderer.setDisplayChartValuesDistance(10); // try to set minimal distance - need to test
+        }
     }
 
 	/**
