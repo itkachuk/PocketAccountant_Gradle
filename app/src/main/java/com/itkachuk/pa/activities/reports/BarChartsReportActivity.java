@@ -77,6 +77,7 @@ public class BarChartsReportActivity extends Activity {
         // restore the current data, for instance when changing the screen orientation
         mDataset = (XYMultipleSeriesDataset) savedState.getSerializable("dataset");
         mRenderer = (XYMultipleSeriesRenderer) savedState.getSerializable("renderer");
+        mRenderer.setZoomRate(1.0f);
     }
 
     @Override
@@ -175,16 +176,63 @@ public class BarChartsReportActivity extends Activity {
                 public void onClick(View v) {
                     // handle the click event on the chart
                     SeriesSelection seriesSelection = mChartView.getCurrentSeriesAndPoint();
-                    if (seriesSelection == null) {
-                        Toast.makeText(BarChartsReportActivity.this, "No chart element", Toast.LENGTH_SHORT).show();
-                    } else {
+                    //if (seriesSelection == null) {
+                        //Toast.makeText(BarChartsReportActivity.this, "No chart element", Toast.LENGTH_SHORT).show();
+                    //} else {
+                    if (seriesSelection != null && (seriesSelection.getSeriesIndex() == 0 || seriesSelection.getSeriesIndex() == 1)) {
                         // display information of the clicked point
-                        Toast.makeText(
-                                BarChartsReportActivity.this,
-                                "Chart element in series index " + seriesSelection.getSeriesIndex()
-                                        + " data point index " + seriesSelection.getPointIndex() + " was clicked"
-                                        + " closest point value X=" + seriesSelection.getXValue() + ", Y="
-                                        + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(
+//                                BarChartsReportActivity.this,
+//                                "Chart element in series index " + seriesSelection.getSeriesIndex()
+//                                        + " data point index " + seriesSelection.getPointIndex() + " was clicked"
+//                                        + " closest point value X=" + seriesSelection.getXValue() + ", Y="
+//                                        + seriesSelection.getValue(), Toast.LENGTH_SHORT).show();
+                        // Drill to consolidated report
+                        String isExpenseFilter = "";
+                        long startDate = 0, endDate = Long.MAX_VALUE;
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.clear(Calendar.HOUR_OF_DAY);
+                        calendar.clear(Calendar.MINUTE);
+                        calendar.clear(Calendar.SECOND);
+                        switch (mTimeStepFilter) {
+                            case DAY: {
+                                if (mIsExpenseFilter) {
+                                    isExpenseFilter = getResources().getString(R.string.Expenses_text);
+                                } else {
+                                    isExpenseFilter = getResources().getString(R.string.Incomes_text);
+                                }
+                                calendar.set(mYearFilter, mMonthFilter, (int) seriesSelection.getXValue());
+                                startDate = calendar.getTimeInMillis();
+                                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                                endDate = calendar.getTimeInMillis();
+                                break;
+                            }
+                            case MONTH: {
+                                if (seriesSelection.getSeriesIndex() == 0) {
+                                    isExpenseFilter = getResources().getString(R.string.Incomes_text);
+                                } else if (seriesSelection.getSeriesIndex() == 1) {
+                                    isExpenseFilter = getResources().getString(R.string.Expenses_text);
+                                }
+                                calendar.set(mYearFilter, (int) seriesSelection.getXValue()-1, 1);
+                                startDate = calendar.getTimeInMillis();
+                                calendar.add(Calendar.MONTH, 1);
+                                endDate = calendar.getTimeInMillis();
+                                break;
+                            }
+                            case YEAR: {
+                                if (seriesSelection.getSeriesIndex() == 0) {
+                                    isExpenseFilter = getResources().getString(R.string.Incomes_text);
+                                } else if (seriesSelection.getSeriesIndex() == 1) {
+                                    isExpenseFilter = getResources().getString(R.string.Expenses_text);
+                                }
+                                calendar.set((int) seriesSelection.getXValue(), 0, 1);
+                                startDate = calendar.getTimeInMillis();
+                                calendar.add(Calendar.YEAR, 1);
+                                endDate = calendar.getTimeInMillis();
+                            }
+                        }
+                        ConsolidatedReportActivity.callMe(context, BarChartsReportActivity.class.getName(),
+                                isExpenseFilter, mAccountsFilter, startDate, endDate);
                     }
                 }
             });
