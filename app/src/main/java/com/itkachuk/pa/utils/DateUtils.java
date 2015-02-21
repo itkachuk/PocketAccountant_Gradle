@@ -207,4 +207,14 @@ public class DateUtils {
 		timeRange.setEndTime(calendar.getTimeInMillis());
 		return timeRange;
 	}
+
+    /**
+     * Clears the HOUR, MINUTE, SECOND fields of Calendar instance. Using of method clear() may lead to unexpected results (http://www.coderanch.com/t/384808/java/java/Problems-Calendar-clear-method)
+     * @param calendar
+     */
+    public static void clearHourMinSec(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+    }
 }

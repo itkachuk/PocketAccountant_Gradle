@@ -54,9 +54,7 @@ public class BarChartsFilterActivity extends OrmLiteBaseActivity<DatabaseHelper>
         mCalendar = Calendar.getInstance();
         //mCalendar.set(Calendar.MONTH, 0);
         mCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        mCalendar.clear(Calendar.HOUR_OF_DAY);
-        mCalendar.clear(Calendar.MINUTE);
-        mCalendar.clear(Calendar.SECOND);
+        DateUtils.clearHourMinSec(mCalendar);
 
         mAccountsFilterSpinner = (Spinner) findViewById(R.id.accountsFilteringSpinner);
         mTimeStepSelectorSpinner = (Spinner) findViewById(R.id.timeStepSelectorSpinner);

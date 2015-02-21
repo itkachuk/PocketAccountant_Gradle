@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.itkachuk.pa.R;
 import com.itkachuk.pa.activities.filters.BarChartsFilterActivity.TimeSteps;
 import com.itkachuk.pa.utils.ChartUtils;
+import com.itkachuk.pa.utils.DateUtils;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -157,9 +158,7 @@ public class BarChartsReportActivity extends Activity {
         mCalendar.set(Calendar.YEAR, mYearFilter);
         mCalendar.set(Calendar.MONTH, mMonthFilter);
         mCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        mCalendar.clear(Calendar.HOUR_OF_DAY);
-        mCalendar.clear(Calendar.MINUTE);
-        mCalendar.clear(Calendar.SECOND);
+        DateUtils.clearHourMinSec(mCalendar);
     }
 
 
@@ -191,9 +190,7 @@ public class BarChartsReportActivity extends Activity {
                         String isExpenseFilter = "";
                         long startDate = 0, endDate = Long.MAX_VALUE;
                         Calendar calendar = Calendar.getInstance();
-                        calendar.clear(Calendar.HOUR_OF_DAY);
-                        calendar.clear(Calendar.MINUTE);
-                        calendar.clear(Calendar.SECOND);
+                        DateUtils.clearHourMinSec(calendar);
                         switch (mTimeStepFilter) {
                             case DAY: {
                                 if (mIsExpenseFilter) {

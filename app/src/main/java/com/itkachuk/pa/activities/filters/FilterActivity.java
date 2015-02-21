@@ -65,7 +65,7 @@ public class FilterActivity extends OrmLiteBaseActivity<DatabaseHelper> {
                 public void onDateSet(DatePicker view, int year, 
                                       int monthOfYear, int dayOfMonth) {
                 	mStartDate.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
-                	mStartDate.clear(Calendar.MILLISECOND);
+                	mStartDate.set(Calendar.MILLISECOND, 0);
                     updateDateButtonLabel(mStartDateButton, mStartDate.getTimeInMillis());
                 }
             };
@@ -75,7 +75,7 @@ public class FilterActivity extends OrmLiteBaseActivity<DatabaseHelper> {
             public void onDateSet(DatePicker view, int year, 
                                   int monthOfYear, int dayOfMonth) {
             	mEndDate.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
-            	mEndDate.clear(Calendar.MILLISECOND);
+            	mEndDate.set(Calendar.MILLISECOND, 0);
                 updateDateButtonLabel(mEndDateButton, mEndDate.getTimeInMillis());
             }
         };        
