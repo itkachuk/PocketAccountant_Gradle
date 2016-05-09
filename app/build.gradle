@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'idea'
 
 android {
-    compileSdkVersion 8
+    compileSdkVersion 15
     buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.itkachuk.pa"
-        minSdkVersion 4
-        targetSdkVersion 8
+        minSdkVersion 8
+        targetSdkVersion 15
     }
 
     buildTypes {
